@@ -51,18 +51,8 @@
 
 			var that = this,
 				loadedCallback = function() {
-					if ( that && that[ languageCode ] ) {
-						var direction = 'ltr';
-						if ( that.rtl[ languageCode ] ) {
-							direction = that.rtl[ languageCode ] ? 'rtl' : 'ltr';
-						} else {
-							// May occur if editor is destroyed
-						}
-						that[ languageCode ].dir = direction;
-						callback( languageCode, that[ languageCode ] );
-					} else {
-						// May occur if editor is destroyed
-					}
+					that[ languageCode ].dir = that.rtl[ languageCode ] ? 'rtl' : 'ltr';
+					callback( languageCode, that[ languageCode ] );
 				};
 
 			if ( !this[ languageCode ] )

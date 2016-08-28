@@ -87,16 +87,12 @@ CKEDITOR.dom.domObject.prototype = ( function() {
 
 			// Check if we have a listener for that event.
 			if ( !nativeListeners[ eventName ] ) {
-				if ( this.$ ) {
-					var listener = nativeListeners[ eventName ] = getNativeListener( this, eventName );
+				var listener = nativeListeners[ eventName ] = getNativeListener( this, eventName );
 
-					if ( this.$.addEventListener )
-						this.$.addEventListener( eventName, listener, !!CKEDITOR.event.useCapture );
-					else if ( this.$.attachEvent )
-						this.$.attachEvent( 'on' + eventName, listener );
-				} else {
-					// May occur if editor is destroyed
-				}
+				if ( this.$.addEventListener )
+					this.$.addEventListener( eventName, listener, !!CKEDITOR.event.useCapture );
+				else if ( this.$.attachEvent )
+					this.$.attachEvent( 'on' + eventName, listener );
 			}
 
 			// Call the original implementation.
@@ -213,15 +209,10 @@ CKEDITOR.dom.domObject.prototype = ( function() {
 	 * @returns {Object} This value set to the data slot.
 	 */
 	domObjectProto.getCustomData = function( key ) {
-		if ( this.$ ) {
-			var expandoNumber = this.$[ 'data-cke-expando' ],
-				dataSlot = expandoNumber && customData[ expandoNumber ];
+		var expandoNumber = this.$[ 'data-cke-expando' ],
+			dataSlot = expandoNumber && customData[ expandoNumber ];
 
-			return ( dataSlot && key in dataSlot ) ? dataSlot[ key ] : null;
-		} else {
-			// May occur if editor is destroyed
-			return null;
-		}
+		return ( dataSlot && key in dataSlot ) ? dataSlot[ key ] : null;
 	};
 
 	/**
@@ -266,12 +257,7 @@ CKEDITOR.dom.domObject.prototype = ( function() {
 	 * @returns {Number} A unique ID.
 	 */
 	domObjectProto.getUniqueId = function() {
-		if ( this.$ ) {
-			return this.$[ 'data-cke-expando' ] || ( this.$[ 'data-cke-expando' ] = CKEDITOR.tools.getNextNumber() );
-		} else {
-			// If editor destroyed, return bogus and hope the callers cope
-			return CKEDITOR.tools.getNextNumber();
-		}
+		return this.$[ 'data-cke-expando' ] || ( this.$[ 'data-cke-expando' ] = CKEDITOR.tools.getNextNumber() );
 	};
 
 	// Implement CKEDITOR.event.

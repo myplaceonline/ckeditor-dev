@@ -118,10 +118,6 @@
 	};
 
 	function onDomReady( win ) {
-		if ( !win.document ) {
-			// May occur if editor is destroyed
-			return false;
-		}
 		var editor = this.editor,
 			doc = win.document,
 			body = doc.body;
